@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemTrack - Chemical Inventory Management</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a modern look */
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f8fafc; /* Very light blue-gray background */
+            margin: 0;
+            line-height: 1.6;
+        }
+        /* Custom styling for buttons */
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            background-color: #6366f1; /* Indigo */
+            color: white;
+            border-radius: 0.75rem; /* Rounded corners */
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+            text-decoration: none; /* Ensure links don't have underline */
+            display: inline-block; /* Allows padding and margin to work correctly */
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5; /* Darker indigo */
+            transform: translateY(-1px);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            background-color: #e0e7ff; /* Light indigo */
+            color: #4f46e5; /* Darker indigo text */
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: 1px solid #a5b4fc; /* Indigo border */
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-secondary:hover {
+            background-color: #c7d2fe; /* Even lighter indigo */
+            transform: translateY(-1px);
+        }
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        /* Section padding for consistency */
+        .section-padding {
+            padding: 4rem 1rem; /* Default padding */
+        }
+        @media (min-width: 768px) { /* Medium screens and up */
+            .section-padding {
+                padding: 6rem 2rem;
+            }
+        }
+        @media (min-width: 1024px) { /* Large screens and up */
+            .section-padding {
+                padding: 8rem 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm py-4 px-4 md:px-8 lg:px-12 flex justify-between items-center fixed w-full z-10">
+        <div class="flex items-center">
+            <a href="homepage.html" class="text-3xl font-bold text-gray-900 tracking-tight">
+                <span class="text-indigo-600">Chem</span>Track
+            </a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="auth-page.html#login" id="loginBtn" class="btn-secondary">Log In</a>
+            <a href="#" id="contactUsBtn" class="btn-primary">Contact Us</a>
+        </div>
+    </nav>
+
+    <main class="pt-20"> <!-- Padding top to account for fixed navbar -->
+
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white section-padding text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    Streamline Your Chemical Inventory with <span class="block mt-2">ChemTrack</span>
+                </h1>
+                <p class="text-lg md:text-xl mb-8 opacity-90">
+                    Efficiently manage, track, and optimize your chemical items and usage, ensuring safety and compliance.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="auth-page.html#register" class="btn-primary bg-white text-indigo-600 hover:bg-gray-100 hover:text-indigo-700 shadow-lg">Get Started Today</a>
+                    <a href="#" class="btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Our Website Does Section -->
+        <section class="bg-white section-padding text-gray-800">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+                    What ChemTrack Does
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-lg leading-relaxed">
+                            ChemTrack is your comprehensive solution for managing chemical inventories in laboratories, educational institutions, and industrial settings. We provide a robust platform to keep track of every chemical item, from its initial registration to its final usage.
+                        </p>
+                        <ul class="list-disc list-inside text-lg space-y-3">
+                            <li><strong class="text-indigo-600">Centralized Inventory:</strong> Keep all your chemical items organized in one accessible place.</li>
+                            <li><strong class="text-indigo-600">Usage Tracking:</strong> Monitor how much of each chemical is used and by whom.</li>
+                            <li><strong class="text-indigo-600">Low Stock Alerts:</strong> Receive notifications for chemicals running low, preventing unexpected shortages.</li>
+                            <li><strong class="text-indigo-600">Reporting & Export:</strong> Generate detailed reports on inventory, usage, and stock levels.</li>
+                            <li><strong class="text-indigo-600">User Management:</strong> Admins can manage users, roles, and access permissions.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1532186771328-97217351651c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chemical Inventory Management" class="rounded-xl shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/4f46e5?text=Chemical+Inventory';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose ChemTrack Section -->
+        <section class="bg-blue-50 section-padding text-gray-800">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Why Choose ChemTrack?
+                </h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Simplified Management</h3>
+                        <p class="text-gray-600">
+                            Say goodbye to manual spreadsheets. Our intuitive interface makes managing your chemical inventory effortless.
+                        </p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Real-time Insights</h3>
+                        <p class="text-gray-600">
+                            Get instant updates on stock levels, usage patterns, and critical alerts to make informed decisions.
+                        </p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-2 4h4m6-14v-3h-2.25A3.75 3.75 0 0012 3c-2.07 0-3.75 1.68-3.75 3.75V7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Enhanced Safety</h3>
+                        <p class="text-gray-600">
+                            By tracking usage and stock, you can better manage hazardous materials and ensure compliance with safety regulations.
+                        </p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Cost Efficiency</h3>
+                        <p class="text-gray-600">
+                            Minimize waste and optimize purchasing by having a clear overview of your chemical stock.
+                        </p>
+                    </div>
+                    <!-- Feature 5 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Collaborative Access</h3>
+                        <p class="text-gray-600">
+                            Share inventory data securely with your team, fostering better collaboration and coordination.
+                        </p>
+                    </div>
+                    <!-- Feature 6 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-indigo-600 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900">Customizable Reporting</h3>
+                        <p class="text-gray-600">
+                            Generate tailored reports for audits, stock-taking, or any specific analytical needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery Section -->
+        <section class="bg-white section-padding text-gray-800">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+                    Chemicals and Chemistry in Action
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1579547622920-561b365851f5?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Laboratory Equipment" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/c7d2fe/4f46e5?text=Lab+Equipment';">
+                        <div class="p-4 bg-gray-50">
+                            <p class="text-lg font-semibold text-gray-800">Precision Lab Equipment</p>
+                            <p class="text-sm text-gray-600 mt-1">Essential tools for accurate measurements and experiments.</p>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1576092265905-24b4239e083a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chemical Bottles" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/a5b4fc/4f46e5?text=Chemical+Bottles';">
+                        <div class="p-4 bg-gray-50">
+                            <p class="text-lg font-semibold text-gray-800">Organized Chemical Storage</p>
+                            <p class="text-sm text-gray-600 mt-1">Properly labeled and stored chemicals for safety and easy access.</p>
+                        </div>
+                    </div>
+                    <div class="rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1581092497161-469b7754388e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chemical Reaction" class="w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/818cf8/4f46e5?text=Chemical+Reaction';">
+                        <div class="p-4 bg-gray-50">
+                            <p class="text-lg font-semibold text-gray-800">Dynamic Chemical Reactions</p>
+                            <p class="text-sm text-gray-600 mt-1">The fascinating world of chemical transformations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white section-padding text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Take Control of Your Inventory?</h2>
+                <p class="text-lg mb-8 opacity-90">
+                    Join ChemTrack today and revolutionize the way you manage your chemical items.
+                </p>
+                <a href="auth-page.html#register" class="btn-primary bg-white text-indigo-700 hover:bg-gray-100 hover:text-indigo-800 shadow-lg">Sign Up Now</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4 md:px-8 lg:px-12 text-center">
+        <p>&copy; 2025 ChemTrack. All rights reserved.</p>
+        <div class="mt-4 text-sm">
+            <a href="#" class="text-gray-400 hover:text-white mx-2">Privacy Policy</a>
+            <span class="text-gray-500">|</span>
+            <a href="#" class="text-gray-400 hover:text-white mx-2">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Placeholder for custom alert/message box (since alert() is not allowed)
+        function alertPlaceholder(message, type = "info") {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = `fixed top-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 text-white font-semibold transition-all duration-300 ease-in-out transform opacity-0 scale-95`;
+
+            if (type === "success") {
+                alertDiv.style.backgroundColor = '#22c55e'; // Green
+            } else if (type === "error") {
+                alertDiv.style.backgroundColor = '#ef4444'; // Red
+            } else {
+                alertDiv.style.backgroundColor = '#3b82f6'; // Blue
+            }
+
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+
+            // Animate in
+            setTimeout(() => {
+                alertDiv.style.opacity = '1';
+                alertDiv.style.transform = 'translate(-50%, 0) scale(1)';
+            }, 50);
+
+            // Animate out and remove after some time
+            setTimeout(() => {
+                alertDiv.style.opacity = '0';
+                alertDiv.style.transform = 'translate(-50%, -20px) scale(0.9)';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+
+        document.getElementById('contactUsBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            alertPlaceholder("Opening contact information...", "info");
+            // In a real app: window.location.href = '/contact.html';
+        });
+
+        document.querySelector('.hero-section .btn-secondary').addEventListener('click', (e) => {
+            e.preventDefault();
+            alertPlaceholder("This would provide more detailed information about ChemTrack.", "info");
+            // window.location.href = '/about.html';
+        });
+    </script>
+</body>
+</html>

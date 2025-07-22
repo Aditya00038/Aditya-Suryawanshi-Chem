@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register - ChemTrack</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a modern look */
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+            display: flex;
+            flex-direction: column; /* Allow content to stack vertically */
+            min-height: 100vh;
+            margin: 0;
+        }
+        /* Navbar styling */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .navbar {
+                padding: 1rem 2rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .navbar {
+                padding: 1rem 3rem;
+            }
+        }
+
+        /* Styling for the authentication card */
+        .auth-card {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 480px; /* Wider card to accommodate more fields if needed */
+            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
+            margin: auto; /* Center the card vertically and horizontally */
+            margin-top: 5rem; /* Space from fixed navbar */
+            margin-bottom: 2rem;
+        }
+        /* Input field styling */
+        .input-field {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        /* Button styling */
+        .btn-primary {
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            background-color: #6366f1;
+            color: white;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #4f46e5;
+            transform: translateY(-1px);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(99, 102, 241, 0.4);
+        }
+        .btn-secondary-nav { /* For navbar buttons */
+            padding: 0.5rem 1rem;
+            background-color: #e0e7ff; /* Light indigo */
+            color: #4f46e5; /* Darker indigo text */
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            border: 1px solid #a5b4fc;
+            text-decoration: none;
+        }
+        .btn-secondary-nav:hover {
+            background-color: #c7d2fe;
+        }
+        .btn-primary-nav { /* For navbar buttons */
+            padding: 0.5rem 1rem;
+            background-color: #6366f1;
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary-nav:hover {
+            background-color: #4f46e5;
+        }
+        /* Error message styling */
+        .error-message {
+            background-color: #fee2e2;
+            color: #ef4444;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #fca5a5;
+        }
+        /* Tab styling */
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            color: #6b7280; /* Gray text */
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .tab-button.active {
+            color: #4f46e5; /* Indigo text */
+            border-color: #6366f1; /* Indigo border */
+        }
+        .tab-button:hover:not(.active) {
+            color: #4f46e5;
+        }
+        /* Google button styling */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            background-color: white;
+            color: #4a5568; /* Gray-700 */
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .btn-google:hover {
+            background-color: #f8fafc;
+            border-color: #a5b4fc;
+            transform: translateY(-1px);
+        }
+        .btn-google:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .btn-google img {
+            margin-right: 0.75rem;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="flex items-center">
+            <a href="homepage.html" class="text-3xl font-bold text-gray-900 tracking-tight">
+                <span class="text-indigo-600">Chem</span>Track
+            </a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="#" id="contactUsBtn" class="btn-primary-nav">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="auth-card">
+        <div class="flex justify-center mb-8 border-b border-gray-200">
+            <button id="loginTab" class="tab-button active">Log In</button>
+            <button id="registerTab" class="tab-button">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginSection">
+            <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">
+                Welcome Back!
+            </h2>
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="loginEmail" class="sr-only">Email address</label>
+                    <input id="loginEmail" name="email" type="email" autocomplete="email" required
+                           class="input-field" placeholder="Email address">
+                </div>
+                <div>
+                    <label for="loginPassword" class="sr-only">Password</label>
+                    <input id="loginPassword" name="password" type="password" autocomplete="current-password" required
+                           class="input-field" placeholder="Password">
+                </div>
+                <div id="loginErrorMessage" class="error-message hidden"></div>
+                <div>
+                    <button type="submit" class="btn-primary">
+                        Log In
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6">
+                <button id="googleSignInBtn" class="btn-google">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                    Sign in with Google
+                </button>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerSection" class="hidden">
+            <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">
+                Create Your Account
+            </h2>
+            <form id="registerForm" class="space-y-6">
+                <div>
+                    <label for="registerName" class="sr-only">Full Name</label>
+                    <input id="registerName" name="name" type="text" autocomplete="name" required
+                           class="input-field" placeholder="Full Name">
+                </div>
+                <div>
+                    <label for="registerEmail" class="sr-only">Email address</label>
+                    <input id="registerEmail" name="email" type="email" autocomplete="email" required
+                           class="input-field" placeholder="Email address">
+                </div>
+                <div>
+                    <label for="registerPassword" class="sr-only">Password</label>
+                    <input id="registerPassword" name="password" type="password" autocomplete="new-password" required
+                           class="input-field" placeholder="Password (min 6 characters)">
+                </div>
+                <div>
+                    <label for="registerConfirmPassword" class="sr-only">Confirm Password</label>
+                    <input id="registerConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required
+                           class="input-field" placeholder="Confirm Password">
+                </div>
+                <div>
+                    <label for="registerRole" class="block text-sm font-medium text-gray-700 mb-2">Register as:</label>
+                    <select id="registerRole" name="role" required
+                            class="input-field cursor-pointer">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div id="registerErrorMessage" class="error-message hidden"></div>
+                <div>
+                    <button type="submit" class="btn-primary">
+                        Register
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6">
+                <button id="googleSignUpBtn" class="btn-google">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                    Sign up with Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables for Firebase config and app ID
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Keep this for Canvas environment
+        const firebaseConfig = {
+            apiKey: "AIzaSyBxxDfMvpB3dTCzBeX2vTd8R2ZhmayHXo4",
+            authDomain: "aditya-suryawanshi-chem.firebaseapp.com",
+            projectId: "aditya-suryawanshi-chem",
+            storageBucket: "aditya-suryawanshi-chem.firebasestorage.app",
+            messagingSenderId: "1056550959635",
+            appId: "1:1056550959635:web:9944e9ae52f3b559a7dde6",
+            measurementId: "G-XXP0XPBNW0",
+        };
+        // Removed initialAuthToken as anonymous sign-in is no longer desired
+        // const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, auth, db;
+
+        // Initialize Firebase and set up authentication
+        async function initializeFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // No anonymous sign-in on page load
+                console.log("Firebase initialized. Waiting for user authentication.");
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        console.log("Auth state changed: User is signed in:", user.uid);
+                        // Optional: Fetch user profile here if needed for immediate display
+                        // on this page, though typically this page redirects upon successful auth.
+                    } else {
+                        console.log("Auth state changed: No user is signed in.");
+                    }
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                alertPlaceholder("Failed to initialize application. Please try again.", "error");
+            }
+        }
+
+        initializeFirebase();
+
+        // Get elements for tab switching
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginSection = document.getElementById('loginSection');
+        const registerSection = document.getElementById('registerSection');
+
+        // Get elements for login form
+        const loginForm = document.getElementById('loginForm');
+        const loginEmailInput = document.getElementById('loginEmail');
+        const loginPasswordInput = document.getElementById('loginPassword');
+        const loginErrorMessageDiv = document.getElementById('loginErrorMessage');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+
+        // Get elements for register form
+        const registerForm = document.getElementById('registerForm');
+        const registerNameInput = document.getElementById('registerName');
+        const registerEmailInput = document.getElementById('registerEmail');
+        const registerPasswordInput = document.getElementById('registerPassword');
+        const registerConfirmPasswordInput = document.getElementById('registerConfirmPassword');
+        const registerRoleSelect = document.getElementById('registerRole');
+        const registerErrorMessageDiv = document.getElementById('registerErrorMessage');
+        const googleSignUpBtn = document.getElementById('googleSignUpBtn');
+
+        // Function to display error messages for login
+        function displayLoginErrorMessage(message) {
+            loginErrorMessageDiv.textContent = message;
+            loginErrorMessageDiv.classList.remove('hidden');
+        }
+
+        // Function to hide error messages for login
+        function hideLoginErrorMessage() {
+            loginErrorMessageDiv.classList.add('hidden');
+            loginErrorMessageDiv.textContent = '';
+        }
+
+        // Function to display error messages for registration
+        function displayRegisterErrorMessage(message) {
+            registerErrorMessageDiv.textContent = message;
+            registerErrorMessageDiv.classList.remove('hidden');
+        }
+
+        // Function to hide error messages for registration
+        function hideRegisterErrorMessage() {
+            registerErrorMessageDiv.classList.add('hidden');
+            registerErrorMessageDiv.textContent = '';
+        }
+
+        // Function to switch between login and register forms
+        function showSection(sectionId) {
+            if (sectionId === 'login') {
+                loginSection.classList.remove('hidden');
+                registerSection.classList.add('hidden');
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                hideRegisterErrorMessage(); // Clear register errors when switching
+            } else {
+                registerSection.classList.remove('hidden');
+                loginSection.classList.add('hidden');
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                hideLoginErrorMessage(); // Clear login errors when switching
+            }
+        }
+
+        // Event listeners for tab buttons
+        loginTab.addEventListener('click', () => showSection('login'));
+        registerTab.addEventListener('click', () => showSection('register'));
+
+        // Helper to redirect after successful authentication and profile check
+        async function handleSuccessfulAuth(user) {
+            const userDocRef = doc(db, 'users', user.uid);
+            console.log("Attempting to fetch user profile for redirection from:", userDocRef.path);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                const userRole = userData.role;
+                console.log("User profile found:", userData);
+                alertPlaceholder(`Login successful! Redirecting to ${userRole} dashboard...`, "success");
+
+                if (userRole === 'admin') {
+                    window.location.href = 'admin_homepage.html'; // Future page
+                } else {
+                    window.location.href = 'user_homepage.html'; // User homepage
+                }
+            } else {
+                console.warn("User profile not found in Firestore for UID:", user.uid);
+                // For new Google sign-ups, create a default profile
+                const defaultRole = 'user'; // Default role for new Google users
+                const userName = user.displayName || 'New User';
+                const userEmail = user.email || 'N/A';
+
+                await setDoc(userDocRef, {
+                    name: userName,
+                    email: userEmail,
+                    role: defaultRole,
+                    createdAt: new Date().toISOString()
+                });
+                alertPlaceholder(`Welcome, ${userName}! Setting up your profile. Redirecting to dashboard...`, "success");
+                window.location.href = 'user_homepage.html'; // Redirect new Google users to user dashboard
+            }
+        }
+
+        // Handle Email/Password login form submission
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideLoginErrorMessage(); // Clear previous errors
+
+            const email = loginEmailInput.value.trim();
+            const password = loginPasswordInput.value.trim(); // Added .trim() here
+
+            if (!email || !password) {
+                displayLoginErrorMessage("Please enter both email and password.");
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                await handleSuccessfulAuth(userCredential.user);
+
+            } catch (error) {
+                console.error("Login error:", error.code, error.message);
+                let message = "An unexpected error occurred. Please try again.";
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        message = "Invalid email or password.";
+                        break;
+                    case 'auth/user-disabled':
+                        message = "Your account has been disabled.";
+                        break;
+                    case 'auth/too-many-requests':
+                        message = "Too many login attempts. Please try again later.";
+                        break;
+                    default:
+                        message = "Login failed. Please check your credentials.";
+                        break;
+                }
+                displayLoginErrorMessage(message);
+            }
+        });
+
+        // Handle Email/Password registration form submission
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideRegisterErrorMessage(); // Clear previous errors
+
+            const name = registerNameInput.value.trim();
+            const email = registerEmailInput.value.trim();
+            const password = registerPasswordInput.value.trim(); // Added .trim() here
+            const confirmPassword = registerConfirmPasswordInput.value.trim(); // Added .trim() here
+            const role = registerRoleSelect.value;
+
+            if (!name || !email || !password || !confirmPassword) {
+                displayRegisterErrorMessage("All fields are required.");
+                return;
+            }
+
+            if (password.length < 6) {
+                displayRegisterErrorMessage("Password must be at least 6 characters long.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                displayRegisterErrorMessage("Passwords do not match.");
+                return;
+            }
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save user profile to Firestore
+                const userDocRef = doc(db, 'users', user.uid);
+                console.log("Attempting to write user profile for registration to:", userDocRef.path, "with UID:", user.uid);
+                await setDoc(userDocRef, {
+                    name: name,
+                    email: email,
+                    role: role,
+                    createdAt: new Date().toISOString()
+                });
+
+                console.log("User registered and profile saved successfully:", user.uid, "Role:", role);
+                alertPlaceholder("Registration successful! You can now log in.", "success");
+                
+                // Switch to login tab after successful registration
+                showSection('login');
+                loginEmailInput.value = email;
+                loginPasswordInput.value = ''; // Clear password field
+                registerForm.reset(); // Clear register form
+
+            } catch (error) {
+                console.error("Registration error:", error.code, error.message);
+                let message = "An unexpected error occurred. Please try again.";
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        message = "This email address is already registered.";
+                        break;
+                    case 'auth/invalid-email':
+                        message = "Invalid email address format.";
+                        break;
+                    case 'auth/weak-password':
+                        message = "Password is too weak. Please choose a stronger one.";
+                        break;
+                    default:
+                        message = "Registration failed. Please try again.";
+                        break;
+                }
+                displayRegisterErrorMessage(message);
+            }
+        });
+
+        // Handle Google Sign-in/Sign-up
+        googleSignInBtn.addEventListener('click', async () => {
+            hideLoginErrorMessage();
+            const provider = new GoogleAuthProvider();
+            try {
+                const userCredential = await signInWithPopup(auth, provider);
+                await handleSuccessfulAuth(userCredential.user);
+            } catch (error) {
+                console.error("Google Sign-in error:", error.code, error.message);
+                let message = "Google Sign-in failed. Please try again.";
+                if (error.code === 'auth/popup-closed-by-user') {
+                    message = "Google Sign-in window closed. Please try again.";
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    message = "Another sign-in request is in progress. Please wait.";
+                }
+                displayLoginErrorMessage(message); // Display error on login form
+            }
+        });
+
+        googleSignUpBtn.addEventListener('click', async () => {
+            hideRegisterErrorMessage();
+            const provider = new GoogleAuthProvider();
+            try {
+                const userCredential = await signInWithPopup(auth, provider);
+                // For Google sign-up, we check if a profile already exists.
+                // If not, we create one with default 'user' role.
+                await handleSuccessfulAuth(userCredential.user);
+            } catch (error) {
+                console.error("Google Sign-up error:", error.code, error.message);
+                let message = "Google Sign-up failed. Please try again.";
+                if (error.code === 'auth/popup-closed-by-user') {
+                    message = "Google Sign-up window closed. Please try again.";
+                } else if (error.code === 'auth/cancelled-popup-request') {
+                    message = "Another sign-up request is in progress. Please wait.";
+                }
+                displayRegisterErrorMessage(message); // Display error on register form
+            }
+        });
+
+
+        // Placeholder for a custom alert/message box (since alert() is not allowed)
+        function alertPlaceholder(message, type = "info") {
+            const existingAlert = document.getElementById('customAlert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.id = 'customAlert';
+            alertDiv.className = `fixed top-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 text-white font-semibold transition-all duration-300 ease-in-out transform opacity-0 scale-95`;
+
+            if (type === "success") {
+                alertDiv.style.backgroundColor = '#22c55e'; // Green
+            } else if (type === "error") {
+                alertDiv.style.backgroundColor = '#ef4444'; // Red
+            } else {
+                alertDiv.style.backgroundColor = '#3b82f6'; // Blue
+            }
+
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+
+            // Animate in
+            setTimeout(() => {
+                alertDiv.style.opacity = '1';
+                alertDiv.style.transform = 'translate(-50%, 0) scale(1)';
+            }, 50);
+
+            // Animate out and remove after some time
+            setTimeout(() => {
+                alertDiv.style.opacity = '0';
+                alertDiv.style.transform = 'translate(-50%, -20px) scale(0.9)';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+
+        document.getElementById('contactUsBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            alertPlaceholder("Opening contact information...", "info");
+            // In a real app: window.location.href = '/contact.html';
+        });
+
+        // Initialize active tab based on URL hash
+        window.onload = () => {
+            const hash = window.location.hash.substring(1); // Get hash without '#'
+            if (hash === 'register') {
+                showSection('register');
+            } else {
+                showSection('login'); // Default to login if no hash or unknown hash
+            }
+        };
+    </script>
+</body>
+</html>
