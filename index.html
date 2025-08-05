@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <main class="text-center p-6 bg-white rounded-xl shadow-lg max-w-md w-full">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome</h1>
+        <p class="text-gray-600 mb-8">Click the button below to proceed to the authentication page.</p>
+        
+        <!-- Button to navigate to the auth page -->
+        <button 
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 shadow-md"
+            onclick="goToAuthPage()">
+            Go to Auth Page
+        </button>
+    </main>
+
+    <script>
+        /**
+         * Redirects the user to the authentication page.
+         */
+        function goToAuthPage() {
+            // This line of code changes the current window's URL to 'auth-page.html'.
+            // Ensure you have a file with this name in the same directory.
+            window.location.href = 'auth-page.html';
+        }
+    </script>
+
+</body>
+</html>
